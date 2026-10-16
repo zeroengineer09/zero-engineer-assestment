@@ -90,7 +90,12 @@ const port = Number(process.env.PORT) || 3000;
 
 if (require.main === module) {
   exec('PRAGMA foreign_keys=ON')
-    .then(() => {
+    .then(async () => {
+      // Backward-compatible migration for existing SQLite databases.
+      const { all } = require('./database');
+      const cols = await all('PRAGMA table_info(examination_attempts)');
+      if (!cols.some(c => c.name === 'candidate_class')) await exec("ALTER TABLE examination_attempts ADD COLUMN candidate_class TEXT NOT NULL DEFAULT ''");
+      if (!cols.some(c => c.name === 'candidate_division')) await exec("ALTER TABLE examination_attempts ADD COLUMN candidate_division TEXT NOT NULL DEFAULT ''");
       app.listen(port, () => {
         console.log(`Certified Developer Test running at http://localhost:${port}`);
       });
