@@ -55,12 +55,24 @@ async function drawCertificate(r) {
 
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = '600 22px Arial, sans-serif';
-    const scoreY = isOffice ? 772 : 782;
-    ctx.fillText(`${r.percentage}% (${r.correctAnswers}/${r.totalQuestions})`, 335 * sx, scoreY * sy);
-    ctx.fillText(new Date(r.completedAt).toLocaleDateString('en-GB'), 750 * sx, scoreY * sy);
-    ctx.font = '600 18px Arial, sans-serif';
-    ctx.fillText(String(r.certificateId || ''), 1265 * sx, scoreY * sy);
+
+    if (isOffice) {
+      // Office template has centered headings and three fixed underline fields.
+      // Keep values centered inside their own columns, below each heading and above its line.
+      const valueY = 748;
+      ctx.font = '600 22px Arial, sans-serif';
+      ctx.fillText(`${r.percentage}% (${r.correctAnswers}/${r.totalQuestions})`, 291 * sx, valueY * sy, 285 * sx);
+      ctx.fillText(new Date(r.completedAt).toLocaleDateString('en-GB'), 715 * sx, valueY * sy, 280 * sx);
+      ctx.font = '600 17px Arial, sans-serif';
+      ctx.fillText(String(r.certificateId || ''), 1145 * sx, valueY * sy, 285 * sx);
+    } else {
+      const scoreY = 782;
+      ctx.font = '600 22px Arial, sans-serif';
+      ctx.fillText(`${r.percentage}% (${r.correctAnswers}/${r.totalQuestions})`, 335 * sx, scoreY * sy);
+      ctx.fillText(new Date(r.completedAt).toLocaleDateString('en-GB'), 750 * sx, scoreY * sy);
+      ctx.font = '600 18px Arial, sans-serif';
+      ctx.fillText(String(r.certificateId || ''), 1265 * sx, scoreY * sy);
+    }
     return canvas;
   } catch (e) {
     document.getElementById('certificateArea').classList.add('hidden');
