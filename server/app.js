@@ -96,6 +96,8 @@ if (require.main === module) {
       const cols = await all('PRAGMA table_info(examination_attempts)');
       if (!cols.some(c => c.name === 'candidate_class')) await exec("ALTER TABLE examination_attempts ADD COLUMN candidate_class TEXT NOT NULL DEFAULT ''");
       if (!cols.some(c => c.name === 'candidate_division')) await exec("ALTER TABLE examination_attempts ADD COLUMN candidate_division TEXT NOT NULL DEFAULT ''");
+      const assessmentCols = await all('PRAGMA table_info(assessments)');
+      if (!assessmentCols.some(c => c.name === 'academic_year')) await exec("ALTER TABLE assessments ADD COLUMN academic_year TEXT NOT NULL DEFAULT 'ALL'");
       app.listen(port, () => {
         console.log(`Certified Developer Test running at http://localhost:${port}`);
       });
