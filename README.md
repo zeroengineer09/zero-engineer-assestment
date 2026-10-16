@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Certified Developer Test | ZERO ENGINEER
 
 A local Node.js + Express + SQLite assessment application. The included certificate background and logo crop are derived from the supplied ZERO ENGINEER certificate image.
@@ -44,3 +45,7 @@ Run `npm test`. See `tests/test-plan.md` for the acceptance checklist. Run the s
 - Certificate text coordinates are initial estimates for the supplied 1536×1087 image. Use the developer-only alignment workflow described in the project request to verify coordinates before issuing real certificates; student-facing output uses one canvas renderer.
 - Add CSRF tokens to state-changing admin routes before production deployment if expanding authentication beyond SameSite cookie protections.
 - Certificate PNG is generated client-side after server-side eligibility; no public verification endpoint is claimed.
+=======
+# zero-engineer-assestment
+ZERO ENGINEER Certified Developer Test — An online MCQ assessment platform with automated scoring, student certificates, and administrator dashboard.
+
