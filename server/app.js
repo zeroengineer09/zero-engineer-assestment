@@ -7,6 +7,7 @@ const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const helmet = require('helmet');
 const { exec } = require('./database');
+const { ensureSchema } = require('./migrations');
 
 const app = express();
 const isProd = process.env.NODE_ENV === 'production';
@@ -91,18 +92,7 @@ const port = Number(process.env.PORT) || 3000;
 if (require.main === module) {
   exec('PRAGMA foreign_keys=ON')
     .then(async () => {
-      // Backward-compatible migration for existing SQLite databases.
-      const { all } = require('./database');
-      const cols = await all('PRAGMA table_info(examination_attempts)');
-      if (!cols.some(c => c.name === 'candidate_class')) await exec("ALTER TABLE examination_attempts ADD COLUMN candidate_class TEXT NOT NULL DEFAULT ''");
-      if (!cols.some(c => c.name === 'candidate_division')) await exec("ALTER TABLE examination_attempts ADD COLUMN candidate_division TEXT NOT NULL DEFAULT ''");
-      const adminCols = await all('PRAGMA table_info(administrators)');
-      if (!adminCols.some(c => c.name === 'must_change_password')) await exec('ALTER TABLE administrators ADD COLUMN must_change_password INTEGER NOT NULL DEFAULT 0');
-      await exec("CREATE TABLE IF NOT EXISTS teachers (id INTEGER PRIMARY KEY, full_name TEXT NOT NULL, email TEXT NOT NULL UNIQUE COLLATE NOCASE, password_hash TEXT NOT NULL, must_change_password INTEGER NOT NULL DEFAULT 1 CHECK(must_change_password IN(0,1)), active INTEGER NOT NULL DEFAULT 1 CHECK(active IN(0,1)), created_at TEXT NOT NULL DEFAULT (datetime('now')), password_changed_at TEXT)");
-      const assessmentCols = await all('PRAGMA table_info(assessments)');
-      if (!assessmentCols.some(c => c.name === 'academic_year')) await exec("ALTER TABLE assessments ADD COLUMN academic_year TEXT NOT NULL DEFAULT 'FY'");
-      // Keep the two currently available assessments assigned to FY across existing deployments.
-      await exec("UPDATE assessments SET academic_year='FY' WHERE lower(trim(title)) IN ('introduction to web design','office management tool')");
+      await ensureSchema();
       app.listen(port, () => {
         console.log(`Certified Developer Test running at http://localhost:${port}`);
       });

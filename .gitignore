@@ -1,12 +1,8 @@
-
 node_modules/
 .env
-.env.*
-!.env.
-
-*.db
-*.db-shm
-*.db-wal
-server-sessions.db
-
+*.log
 .DS_Store
+database/*.db
+database/*.sqlite
+INITIAL-ACCOUNT-SETUP.txt
+teacher-directory.xlsx

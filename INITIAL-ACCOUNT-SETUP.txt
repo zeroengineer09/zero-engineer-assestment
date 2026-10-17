@@ -3,8 +3,8 @@ ZERO ENGINEER — INITIAL ACCOUNT SETUP
 Owner login email: kaushalpatil927@gmail.com
 Owner initial password: s4zJeQONIbUAgDzdC8
 
-Shared teacher initial password: Login@123
-All listed teachers must change this password on first login. The initialization script resets listed teacher accounts to this initial password whenever it is run; run it only when intentionally initializing/resetting teacher accounts.
+Shared teacher initial password: aPUrkycc4tuSy-gU
+All listed teachers must change this password on first login.
 
 Setup steps:
 1. Set TEACHER_INITIAL_PASSWORD and OWNER_INITIAL_PASSWORD in your deployment environment to the exact values above.
