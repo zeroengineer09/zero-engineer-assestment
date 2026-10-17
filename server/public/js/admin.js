@@ -4,8 +4,10 @@ document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=async()=>{try{const
 const teachers=await api('/api/admin/teachers');
 const ownerOnly='<p class="muted small">Owner-only view. Passwords and password hashes are never displayed.</p>';
 const renderDirectory=()=>{
-const hod=teachers.filter(t=>String(t.email).toLowerCase()==='tushar.patel@rcpimrd.ac.in');
-const classTeachers=teachers.filter(t=>String(t.email).toLowerCase()==='rdc.imrd@rcpimrd.ac.in');
+const normEmail=t=>String(t.email||'').trim().toLowerCase();
+const normName=t=>String(t.full_name||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,' ');
+const hod=teachers.filter(t=>normEmail(t)==='tushar.patel@rcpimrd.ac.in'||normName(t).includes('tushar r patel'));
+const classTeachers=teachers.filter(t=>normEmail(t)==='rdc.imrd@gmail.com'||normName(t)==='rahul d chaudhari');
 const special=new Set([...hod,...classTeachers].map(t=>String(t.id)));
 const subjects=teachers.filter(t=>!special.has(String(t.id)));
 const card=(t,role="SUBJECT TEACHER")=>`<button type="button" class="teacher-directory-card ${role==="CLASS TEACHER"?"teacher-directory-card-class":role==="HOD"?"teacher-directory-card-hod":""}" data-open-teacher="${t.id}"><span class="teacher-avatar">${escapeHtml(String(t.full_name||'?').trim().charAt(0).toUpperCase())}</span><span class="teacher-card-copy"><span class="teacher-role-badge">${escapeHtml(role)}</span><strong>${escapeHtml(t.full_name)}</strong><small>${escapeHtml(t.email)}</small><span class="teacher-card-meta">${t.subject_count} subjects · ${t.assessment_count} assessments</span><span class="teacher-card-arrow">View profile →</span></span></button>`;
