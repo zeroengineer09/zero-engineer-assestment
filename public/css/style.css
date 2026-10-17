@@ -20,3 +20,16 @@ form{display:grid;gap:13px;max-width:100%;margin-top:20px}label{display:grid;gap
 .promo-panel:after{margin-top:2px;font-size:.62rem;letter-spacing:.08em;}
 @media(max-width:900px){.home-layout>.promo-panel{max-height:none;padding:10px}.promo-panel .promo-image{max-height:62vh;}}
 @media(max-width:700px){.home-layout>.promo-panel{grid-row:2;max-height:none;padding:10px}.promo-panel .promo-image{width:100%;height:auto;max-height:70vh;object-fit:contain}.promo-panel .promo-caption{font-size:.76rem}.promo-panel:after{font-size:.56rem;}}
+
+/* Teacher directory: profile-first layout */
+.teacher-directory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:18px 0 24px}
+.teacher-directory-card{display:flex;align-items:center;gap:12px;text-align:left;width:100%;min-width:0;background:linear-gradient(135deg,#132642,#101b2d);color:var(--text);border:1px solid #2a405d;border-left:4px solid var(--cyan);border-radius:14px;padding:15px;box-shadow:0 8px 22px #0002}
+.teacher-directory-card:hover{border-color:var(--blue)}
+.teacher-avatar{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border-radius:50%;background:#1d416b;color:#fff;font-weight:800;font-size:1.1rem}
+.teacher-card-copy{display:grid;gap:3px;min-width:0;flex:1}
+.teacher-card-copy strong{overflow-wrap:anywhere}
+.teacher-card-copy small{color:var(--muted);overflow-wrap:anywhere}
+.teacher-card-meta,.teacher-card-arrow{font-size:.76rem;color:var(--cyan)}
+.teacher-card-arrow{white-space:nowrap}
+#passwordChangeBack{margin-right:auto}
+@media(max-width:640px){.teacher-directory-grid{grid-template-columns:1fr}.teacher-directory-card{padding:12px}.teacher-card-arrow{font-size:.7rem}}
