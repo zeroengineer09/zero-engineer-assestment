@@ -11,3 +11,19 @@ CREATE TABLE IF NOT EXISTS results (id INTEGER PRIMARY KEY, attempt_id TEXT NOT 
 CREATE TABLE IF NOT EXISTS violation_logs (id INTEGER PRIMARY KEY, attempt_id TEXT NOT NULL REFERENCES examination_attempts(id) ON DELETE CASCADE, violation_type TEXT NOT NULL, details TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL DEFAULT (datetime('now')));
 
 CREATE TABLE IF NOT EXISTS teachers (id INTEGER PRIMARY KEY, full_name TEXT NOT NULL, email TEXT NOT NULL UNIQUE COLLATE NOCASE, password_hash TEXT NOT NULL, must_change_password INTEGER NOT NULL DEFAULT 1 CHECK(must_change_password IN(0,1)), active INTEGER NOT NULL DEFAULT 1 CHECK(active IN(0,1)), created_at TEXT NOT NULL DEFAULT (datetime('now')), password_changed_at TEXT);
+
+CREATE TABLE IF NOT EXISTS student_accounts (
+  id INTEGER PRIMARY KEY,
+  email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+  full_name TEXT NOT NULL,
+  academic_year TEXT NOT NULL DEFAULT '',
+  division TEXT NOT NULL DEFAULT '',
+  roll_number TEXT NOT NULL DEFAULT '',
+  admission_year TEXT NOT NULL DEFAULT '',
+  password_hash TEXT NOT NULL,
+  must_change_password INTEGER NOT NULL DEFAULT 1 CHECK(must_change_password IN(0,1)),
+  active INTEGER NOT NULL DEFAULT 1 CHECK(active IN(0,1)),
+  profile_photo_data TEXT NOT NULL DEFAULT '',
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  password_changed_at TEXT
+);

@@ -1,8 +1,9 @@
-# ZERO ENGINEER Certified Developer Test
+# Certified Developer Test
 
+## Student accounts and profile
 
-## Teacher and owner accounts
+Student login uses a roster imported by the owner/admin. Save the institution's spreadsheet as CSV with columns `email`, `full_name`, `academic_year` (FY/SY/TY), `division` (A/B/C/D), `roll_number`, and `admission_year`. A sample is in `student-roster-template.csv`.
 
-Teacher accounts are initialized from `server/initializeAccounts.js`. Set `TEACHER_INITIAL_PASSWORD` and `OWNER_INITIAL_PASSWORD` in the environment before running `npm run initialize-accounts`. Run `npm run init-db` first. The initialization script creates accounts only when they do not already exist; it does not reset existing teacher or owner passwords. Every initial account must change its password after first login. Passwords are stored as bcrypt hashes in SQLite, not as plaintext.
+Import on the server using `node server/importStudents.js path/to/student-roster.csv`. New student accounts receive the shared initial password `Pass@123` and are required to change it at first login. Existing accounts keep their existing passwords when roster details are updated. The importer updates roster details only; it does not reset passwords.
 
-Teacher sign-in is separate from owner sign-in. The teacher lookup displays the registered teacher name after a matching email is entered. The spreadsheet `teacher-directory.xlsx` is a separate onboarding reference. Protect it and delete it after distributing initial credentials.
+Student profile photos are stored in the SQLite database (JPG/PNG, max 256 KB). The student profile intentionally does not display a phone-number field. Until the student roster is imported, student login will correctly report that the account is not registered.

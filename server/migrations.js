@@ -25,6 +25,21 @@ async function ensureSchema() {
   CREATE TABLE IF NOT EXISTS teacher_assessments (teacher_id INTEGER NOT NULL REFERENCES teachers(id) ON DELETE CASCADE, assessment_id INTEGER NOT NULL REFERENCES assessments(id) ON DELETE CASCADE, PRIMARY KEY(teacher_id, assessment_id));`);
   await ensureColumn('assessments', 'owner_teacher_id', 'INTEGER REFERENCES teachers(id)');
 
+  await exec(`CREATE TABLE IF NOT EXISTS student_accounts (
+    id INTEGER PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE COLLATE NOCASE,
+    full_name TEXT NOT NULL,
+    academic_year TEXT NOT NULL DEFAULT '',
+    division TEXT NOT NULL DEFAULT '',
+    roll_number TEXT NOT NULL DEFAULT '',
+    admission_year TEXT NOT NULL DEFAULT '',
+    password_hash TEXT NOT NULL,
+    must_change_password INTEGER NOT NULL DEFAULT 1 CHECK(must_change_password IN(0,1)),
+    active INTEGER NOT NULL DEFAULT 1 CHECK(active IN(0,1)),
+    profile_photo_data TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    password_changed_at TEXT
+  )`);
   // Keep the current known assessments assigned to FY.
   await run("UPDATE assessments SET academic_year='FY' WHERE lower(trim(title)) IN ('introduction to web design','office management tool')");
   // Teacher division assignments were not verified; clear guessed A/B/C/D assignments.
