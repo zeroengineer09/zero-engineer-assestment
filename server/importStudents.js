@@ -20,13 +20,14 @@ function parseCSV(text){
   const year=(r.academic_year||r.class_year||r.class||r.year||'').toUpperCase().replace(/^BCA\s*/,'').split(/[\s-]/)[0];
   const division=(r.division||r.div||'').toUpperCase();
   const roll=r.roll_number||r.roll_no||r.roll||r.rollno||'';
-  const admission=r.admission_year||r.admissionyear||r.admission_year||'';
+  const admission=r.admission_year||r.admissionyear||'';
+  const practicalBatch=r.practical_batch||r.practicalbatch||r.batch||'';
   if(!email||!email.includes('@')||!name){skipped++;continue;}
   const exists=await get('SELECT id FROM student_accounts WHERE lower(email)=lower(?)',[email]);
   if(exists){
-   await run('UPDATE student_accounts SET full_name=?,academic_year=?,division=?,roll_number=?,admission_year=? WHERE id=?',[name,year,division,roll,admission,exists.id]);updated++;
+   await run('UPDATE student_accounts SET full_name=?,academic_year=?,division=?,roll_number=?,admission_year=?,practical_batch=? WHERE id=?',[name,year,division,roll,admission,practicalBatch,exists.id]);updated++;
   }else{
-   await run('INSERT INTO student_accounts(email,full_name,academic_year,division,roll_number,admission_year,password_hash,must_change_password) VALUES(?,?,?,?,?,?,?,1)',[email,name,year,division,roll,admission,initialHash]);added++;
+   await run('INSERT INTO student_accounts(email,full_name,academic_year,division,roll_number,admission_year,practical_batch,password_hash,must_change_password) VALUES(?,?,?,?,?,?,?,?,1)',[email,name,year,division,roll,admission,practicalBatch,initialHash]);added++;
   }
  }
  console.log(`Student roster import complete. Added: ${added}; updated roster details: ${updated}; skipped invalid rows: ${skipped}. Initial password for newly created accounts: Pass@123. Existing passwords were preserved.`);

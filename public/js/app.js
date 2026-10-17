@@ -5,7 +5,7 @@ let currentStudent=null;
 async function loadStudentProfile(){
  const p=await api('/api/students/me');currentStudent=p;window.currentStudent=p;window.studentMustChangePassword=!!p.mustChangePassword;
  $('#studentProfileName').textContent=p.fullName;$('#studentProfileClass').textContent=[p.academicYear,p.division?'Division '+p.division:''].filter(Boolean).join(' • ')||'Student';
- $('#studentProfileEmail').textContent=p.email;$('#studentProfileRoll').textContent=p.rollNumber||'—';$('#studentProfileAdmission').textContent=p.admissionYear||'—';
+ $('#studentProfileEmail').textContent=p.email;$('#studentProfileRoll').textContent=p.rollNumber||'—';$('#studentProfileAdmission').textContent=p.admissionYear||'—';$('#studentProfileBatch').textContent=p.practicalBatch||'—';
  $('#studentPhotoPreview').src=p.profilePhoto||'/assets/student-avatar-placeholder.svg';
  $('#fullName').value=p.fullName;$('#candidateClass').value=p.academicYear||'';$('#candidateDivision').value=p.division||'';
  $('#candidateClass').disabled=true;$('#candidateDivision').disabled=true;

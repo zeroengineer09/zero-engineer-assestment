@@ -40,6 +40,22 @@ async function ensureSchema() {
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     password_changed_at TEXT
   )`);
+  await ensureColumn('student_accounts', 'practical_batch', "TEXT NOT NULL DEFAULT ''");
+
+  // Add the supplied initial student only when the email is not already present.
+  // Existing student passwords are never overwritten.
+  const initialStudent = await get('SELECT id FROM student_accounts WHERE lower(email)=lower(?)', ['yp0333z7@gmail.com']);
+  if (!initialStudent) {
+    const studentHash = await bcrypt.hash('Pass@123', 12);
+    await run(`INSERT INTO student_accounts
+      (email, full_name, academic_year, division, roll_number, admission_year, practical_batch, password_hash, must_change_password, active)
+      VALUES(?,?,?,?,?,?,?,?,1,1)`,
+      ['yp0333z7@gmail.com','PATIL KAUSHAL SUNIL','FY','B','115','2026','B4',studentHash]);
+  } else {
+    await run(`UPDATE student_accounts SET full_name=?, academic_year=?, division=?, roll_number=?, admission_year=?, practical_batch=? WHERE id=?`,
+      ['PATIL KAUSHAL SUNIL','FY','B','115','2026','B4',initialStudent.id]);
+  }
+
   // Keep the current known assessments assigned to FY.
   await run("UPDATE assessments SET academic_year='FY' WHERE lower(trim(title)) IN ('introduction to web design','office management tool')");
   // Teacher division assignments were not verified; clear guessed A/B/C/D assignments.

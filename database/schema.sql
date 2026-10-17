@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS student_accounts (
   division TEXT NOT NULL DEFAULT '',
   roll_number TEXT NOT NULL DEFAULT '',
   admission_year TEXT NOT NULL DEFAULT '',
+  practical_batch TEXT NOT NULL DEFAULT '',
   password_hash TEXT NOT NULL,
   must_change_password INTEGER NOT NULL DEFAULT 1 CHECK(must_change_password IN(0,1)),
   active INTEGER NOT NULL DEFAULT 1 CHECK(active IN(0,1)),
