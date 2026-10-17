@@ -22,3 +22,5 @@ $('#teacherExport').onclick=async()=>{try{const q=new URLSearchParams();if($('#t
 $('#teacherChangePassword').onclick=()=>{passwordTarget='teacher';$('#currentPassword').value='';$('#newPassword').value='';$('#confirmPassword').value='';show('passwordChange')};
 const originalTeacherLogin=$('#teacherLoginForm').onsubmit;
 $('#teacherLoginForm').onsubmit=async e=>{await originalTeacherLogin(e);if(!$('#teacherDashboard').classList.contains('hidden'))loadTeacherDashboard()};
+
+;['privacyLink','disclaimerLink'].forEach(id=>{const link=document.getElementById(id);if(link)link.addEventListener('click',e=>{e.preventDefault();const target=document.getElementById(id==='privacyLink'?'privacy':'disclaimer');if(target)target.classList.toggle('hidden')})});
