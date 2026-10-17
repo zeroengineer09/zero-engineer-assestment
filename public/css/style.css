@@ -33,3 +33,5 @@ form{display:grid;gap:13px;max-width:100%;margin-top:20px}label{display:grid;gap
 .teacher-card-arrow{white-space:nowrap}
 #passwordChangeBack{margin-right:auto}
 @media(max-width:640px){.teacher-directory-grid{grid-template-columns:1fr}.teacher-directory-card{padding:12px}.teacher-card-arrow{font-size:.7rem}}
+
+.teacher-role-group{margin:24px 0 30px;padding:18px;background:#f7faff;border:1px solid #dce6f0;border-radius:16px}.teacher-role-group h4{margin:0 0 8px;color:var(--navy);font-size:1.15rem}.teacher-role-group .teacher-directory-grid{margin-top:14px}.teacher-profile-detail{margin-top:30px;padding-top:12px}.teacher-profile-detail .actions{justify-content:flex-start}.teacher-directory-card{min-width:0;text-align:left}
