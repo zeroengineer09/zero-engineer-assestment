@@ -35,3 +35,16 @@ form{display:grid;gap:13px;max-width:100%;margin-top:20px}label{display:grid;gap
 @media(max-width:640px){.teacher-directory-grid{grid-template-columns:1fr}.teacher-directory-card{padding:12px}.teacher-card-arrow{font-size:.7rem}}
 
 .teacher-role-group{margin:24px 0 30px;padding:18px;background:#f7faff;border:1px solid #dce6f0;border-radius:16px}.teacher-role-group h4{margin:0 0 8px;color:var(--navy);font-size:1.15rem}.teacher-role-group .teacher-directory-grid{margin-top:14px}.teacher-profile-detail{margin-top:30px;padding-top:12px}.teacher-profile-detail .actions{justify-content:flex-start}.teacher-directory-card{min-width:0;text-align:left}
+
+/* Clear role labels and improved class-teacher profile card layout */
+.teacher-directory-card{align-items:flex-start;min-width:0;overflow:hidden}
+.teacher-card-copy{width:100%;overflow:hidden}
+.teacher-card-copy strong{display:block;line-height:1.35;overflow-wrap:anywhere;word-break:normal}
+.teacher-card-copy small{display:block;line-height:1.4;overflow-wrap:anywhere;word-break:break-word}
+.teacher-role-badge{display:inline-flex;width:max-content;max-width:100%;padding:4px 8px;border-radius:999px;background:#e7f1ff;color:#17406d;font-size:.68rem;font-weight:800;letter-spacing:.04em}
+.teacher-directory-card-class{background:linear-gradient(135deg,#102b49,#153b5a);border-left:5px solid #f4b740}
+.teacher-directory-card-class .teacher-role-badge{background:#fff1c9;color:#714900}
+.teacher-directory-card-hod{border-left:5px solid #20b486}
+.teacher-directory-card-hod .teacher-role-badge{background:#d9f7ed;color:#075f48}
+.teacher-card-arrow{display:block;margin-top:5px;white-space:normal}
+@media(max-width:640px){.teacher-directory-card{gap:10px;padding:13px}.teacher-avatar{width:42px;height:42px;flex-basis:42px}.teacher-card-arrow{font-size:.76rem}}
