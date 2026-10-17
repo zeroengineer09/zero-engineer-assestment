@@ -19,8 +19,7 @@ async function ensureSchema() {
   await ensureColumn('assessments', 'academic_year', "TEXT NOT NULL DEFAULT 'ALL'");
   await ensureColumn('examination_attempts', 'candidate_class', "TEXT NOT NULL DEFAULT ''");
   await ensureColumn('examination_attempts', 'candidate_division', "TEXT NOT NULL DEFAULT ''");
-  await exec("CREATE TABLE IF NOT EXISTS teachers (id INTEGER PRIMARY KEY, full_name TEXT NOT NULL, email TEXT NOT NULL UNIQUE COLLATE NOCASE, password_hash TEXT NOT NULL, role TEXT NOT NULL DEFAULT 'teacher' CHECK(role IN('teacher','hod')), must_change_password INTEGER NOT NULL DEFAULT 1 CHECK(must_change_password IN(0,1)), active INTEGER NOT NULL DEFAULT 1 CHECK(active IN(0,1)), created_at TEXT NOT NULL DEFAULT (datetime('now')), password_changed_at TEXT)");
-  await ensureColumn('teachers', 'role', "TEXT NOT NULL DEFAULT 'teacher'");
+  await exec("CREATE TABLE IF NOT EXISTS teachers (id INTEGER PRIMARY KEY, full_name TEXT NOT NULL, email TEXT NOT NULL UNIQUE COLLATE NOCASE, password_hash TEXT NOT NULL, must_change_password INTEGER NOT NULL DEFAULT 1 CHECK(must_change_password IN(0,1)), active INTEGER NOT NULL DEFAULT 1 CHECK(active IN(0,1)), created_at TEXT NOT NULL DEFAULT (datetime('now')), password_changed_at TEXT)");
 
   await exec(`CREATE TABLE IF NOT EXISTS teacher_subjects (id INTEGER PRIMARY KEY, teacher_id INTEGER NOT NULL REFERENCES teachers(id) ON DELETE CASCADE, subject_name TEXT NOT NULL, academic_year TEXT NOT NULL DEFAULT 'FY', divisions TEXT NOT NULL DEFAULT 'A,B,C,D', UNIQUE(teacher_id, subject_name, academic_year));
   CREATE TABLE IF NOT EXISTS teacher_assessments (teacher_id INTEGER NOT NULL REFERENCES teachers(id) ON DELETE CASCADE, assessment_id INTEGER NOT NULL REFERENCES assessments(id) ON DELETE CASCADE, PRIMARY KEY(teacher_id, assessment_id));`);
@@ -42,20 +41,18 @@ async function ensureSchema() {
     ['Priyanka S. Saindane','piyurap1418@gmail.com',['IKS - Ancient Indian Knowledge Tradition']],
     ['Rahul D. Chaudhari','rdc.imrd@gmail.com',['Programming using C++']],
     ['Vaishnavi Nandalal Kuwar','vaishnavikuwar215@gmail.com',['Office Management Tools','Practical based on Programming using C++']],
-    ['Dr. Tushar R. Patel','tushar.patel@rcpimrd.ac.in',[],'hod']
+    ['Dr. Tushar R. Patel','tushar.patel@rcpimrd.ac.in',[]]
   ];
   const initialTeacherPassword = process.env.TEACHER_INITIAL_PASSWORD || 'Login@123';
   const initialHash = await bcrypt.hash(initialTeacherPassword, 12);
-  for (const [name, email, subjects, role='teacher'] of directory) {
+  for (const [name, email, subjects] of directory) {
     let teacher = await get('SELECT id FROM teachers WHERE lower(email)=lower(?)', [email]);
     if (!teacher) {
       const inserted = await run('INSERT INTO teachers(full_name,email,password_hash,must_change_password,active) VALUES(?,?,?,1,1)', [name,email,initialHash]);
       teacher = { id: inserted.lastID };
-      await run('UPDATE teachers SET role=? WHERE id=?', [role,teacher.id]);
     } else {
-      await run('UPDATE teachers SET full_name=?,active=1,role=? WHERE id=?', [name,role,teacher.id]);
+      await run('UPDATE teachers SET full_name=?,active=1 WHERE id=?', [name,teacher.id]);
     }
-    await run('UPDATE teachers SET role=? WHERE id=?', [role,teacher.id]);
     for (const subject of subjects) {
       await run("INSERT OR IGNORE INTO teacher_subjects(teacher_id,subject_name,academic_year,divisions) VALUES(?,?, 'FY','A,B,C,D')", [teacher.id,subject]);
     }
