@@ -1,9 +1,17 @@
-# Certified Developer Test
+# ZERO ENGINEER Certified Developer Test
 
-## Student accounts and profile
 
-Student login uses a roster imported by the owner/admin. Save the institution's spreadsheet as CSV with columns `email`, `full_name`, `academic_year` (FY/SY/TY), `division` (A/B/C/D), `roll_number`, and `admission_year`. A sample is in `student-roster-template.csv`.
+## Email OTP password recovery
 
-Import on the server using `node server/importStudents.js path/to/student-roster.csv`. New student accounts receive the shared initial password `Pass@123` and are required to change it at first login. Existing accounts keep their existing passwords when roster details are updated. The importer updates roster details only; it does not reset passwords.
+Student and teacher login pages provide a **Forgot password?** flow. The server creates a one-time 6-digit OTP, stores only its SHA-256 hash, expires it after 10 minutes, rate-limits requests, and updates the password only after OTP verification.
 
-Student profile photos are stored in the SQLite database (JPG/PNG, max 256 KB). The student profile intentionally does not display a phone-number field. Until the student roster is imported, student login will correctly report that the account is not registered.
+To enable email delivery, configure these deployment environment variables using your SMTP provider and a sender address verified by that provider:
+
+- `SMTP_HOST`
+- `SMTP_PORT` (usually `587`)
+- `SMTP_SECURE` (`false` for STARTTLS on port 587; `true` for implicit TLS on port 465)
+- `SMTP_USER`
+- `SMTP_PASS`
+- `MAIL_FROM` (a verified no-reply sender, e.g. `ZERO ENGINEER No-Reply <no-reply@your-verified-domain.example>`)
+
+Do not commit real SMTP credentials. Without valid SMTP settings and a verified sender, the UI will show a configuration/delivery error and cannot send OTP emails.
