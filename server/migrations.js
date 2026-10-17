@@ -21,12 +21,14 @@ async function ensureSchema() {
   await ensureColumn('examination_attempts', 'candidate_division', "TEXT NOT NULL DEFAULT ''");
   await exec("CREATE TABLE IF NOT EXISTS teachers (id INTEGER PRIMARY KEY, full_name TEXT NOT NULL, email TEXT NOT NULL UNIQUE COLLATE NOCASE, password_hash TEXT NOT NULL, must_change_password INTEGER NOT NULL DEFAULT 1 CHECK(must_change_password IN(0,1)), active INTEGER NOT NULL DEFAULT 1 CHECK(active IN(0,1)), created_at TEXT NOT NULL DEFAULT (datetime('now')), password_changed_at TEXT)");
 
-  await exec(`CREATE TABLE IF NOT EXISTS teacher_subjects (id INTEGER PRIMARY KEY, teacher_id INTEGER NOT NULL REFERENCES teachers(id) ON DELETE CASCADE, subject_name TEXT NOT NULL, academic_year TEXT NOT NULL DEFAULT 'FY', divisions TEXT NOT NULL DEFAULT 'A,B,C,D', UNIQUE(teacher_id, subject_name, academic_year));
+  await exec(`CREATE TABLE IF NOT EXISTS teacher_subjects (id INTEGER PRIMARY KEY, teacher_id INTEGER NOT NULL REFERENCES teachers(id) ON DELETE CASCADE, subject_name TEXT NOT NULL, academic_year TEXT NOT NULL DEFAULT 'FY', divisions TEXT NOT NULL DEFAULT '', UNIQUE(teacher_id, subject_name, academic_year));
   CREATE TABLE IF NOT EXISTS teacher_assessments (teacher_id INTEGER NOT NULL REFERENCES teachers(id) ON DELETE CASCADE, assessment_id INTEGER NOT NULL REFERENCES assessments(id) ON DELETE CASCADE, PRIMARY KEY(teacher_id, assessment_id));`);
   await ensureColumn('assessments', 'owner_teacher_id', 'INTEGER REFERENCES teachers(id)');
 
   // Keep the current known assessments assigned to FY.
   await run("UPDATE assessments SET academic_year='FY' WHERE lower(trim(title)) IN ('introduction to web design','office management tool')");
+  // Teacher division assignments were not verified; clear guessed A/B/C/D assignments.
+  await run("UPDATE teacher_subjects SET divisions='' WHERE divisions IS NOT NULL AND trim(divisions)<>''");
 
   // Import the supplied teacher directory into SQLite on startup. Existing teacher
   // passwords are deliberately preserved; only newly-created accounts get the
@@ -54,7 +56,7 @@ async function ensureSchema() {
       await run('UPDATE teachers SET full_name=?,active=1 WHERE id=?', [name,teacher.id]);
     }
     for (const subject of subjects) {
-      await run("INSERT OR IGNORE INTO teacher_subjects(teacher_id,subject_name,academic_year,divisions) VALUES(?,?, 'FY','A,B,C,D')", [teacher.id,subject]);
+      await run("INSERT OR IGNORE INTO teacher_subjects(teacher_id,subject_name,academic_year,divisions) VALUES(?,?, 'FY','')", [teacher.id,subject]);
     }
   }
 
