@@ -66,7 +66,6 @@ app.use((req, res, next) => {
 app.use('/api/auth', require('./auth'));
 app.use('/api/exam', require('./examRoutes'));
 app.use('/api/admin', require('./adminRoutes'));
-app.use('/api/certificates', require('./certificateRoutes'));
 
 app.use(express.static(path.join(__dirname, '../public')));
 
