@@ -17,7 +17,7 @@ async function main(){
  await ensureSchema();
  const tp=process.env.TEACHER_INITIAL_PASSWORD,op=process.env.OWNER_INITIAL_PASSWORD;
  if(!tp||!op)throw new Error('Set TEACHER_INITIAL_PASSWORD and OWNER_INITIAL_PASSWORD before initializing accounts.');
- for(const [name,email] of teachers){const old=await get('SELECT id FROM teachers WHERE lower(email)=lower(?)',[email]);const hash=await bcrypt.hash(tp,12);if(!old)await run('INSERT INTO teachers(full_name,email,password_hash,must_change_password) VALUES(?,?,?,1)',[name,email,hash]);else await run("UPDATE teachers SET full_name=?,password_hash=?,must_change_password=1,password_changed_at=NULL,active=1 WHERE id=?",[name,hash,old.id]);}
+ for(const [name,email] of teachers){const old=await get('SELECT id FROM teachers WHERE lower(email)=lower(?)',[email]);if(!old){const hash=await bcrypt.hash(tp,12);await run('INSERT INTO teachers(full_name,email,password_hash,must_change_password) VALUES(?,?,?,1)',[name,email,hash]);}else{await run('UPDATE teachers SET full_name=?,active=1 WHERE id=?',[name,old.id]);}}
  const email='kaushalpatil927@gmail.com';let owner=await get('SELECT * FROM administrators WHERE lower(username)=lower(?)',[email]);const hash=await bcrypt.hash(op,12);if(!owner)await run('INSERT INTO administrators(username,password_hash,must_change_password) VALUES(?,?,1)',[email,hash]);
  console.log(`Initialized teacher accounts and owner account ${email}. Teacher passwords were set to the configured initial password and must be changed at first login. Existing owner password was preserved.`);
 }
