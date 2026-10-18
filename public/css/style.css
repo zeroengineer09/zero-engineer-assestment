@@ -106,3 +106,81 @@ body.student-authenticated #studentLoginForm,body.student-authenticated .login-a
 @media(max-width:800px){.student-sidebar{position:fixed;top:0;bottom:0;left:0;height:100dvh;width:270px;transform:translateX(-105%);box-shadow:12px 0 35px #061c3530;overflow-y:auto}.student-sidebar.open{transform:translateX(0)}.student-sidebar-backdrop.show{display:block;position:fixed;inset:0;background:#061b32a3;z-index:25}.student-sidebar-heading button{display:block}.student-portal-content{padding:18px 14px}.student-summary-grid{gap:10px}.student-summary-grid article{padding:14px}.student-summary-grid strong{font-size:23px}.student-data-card{align-items:flex-start;flex-wrap:wrap;padding:14px}.student-start-test{margin-left:62px}.student-teacher-grid{grid-template-columns:1fr}.student-welcome-card{padding:20px}.student-welcome-card img{width:64px;height:64px}.student-portal-top{height:68px}}
 @media(min-width:801px){.student-sidebar-heading button{display:none}}
 @media(max-width:480px){.student-summary-grid{grid-template-columns:1fr}.student-summary-grid article{display:flex;justify-content:space-between;align-items:center}.student-summary-grid strong{margin:0}.student-portal-top .secondary{padding:8px 10px;font-size:12px}.student-welcome-card h2{font-size:23px}.student-data-main h3{font-size:15px}}
+
+/* Landing page refinement: compact, contained and mobile-first. */
+body:has(.login-header){background:#edf2f7;background-attachment:initial;overflow-x:hidden}
+.login-header{min-height:58px;height:58px;padding:7px clamp(12px,2.5vw,28px);justify-content:flex-end;background:linear-gradient(105deg,#082746,#123e66);border-bottom:2px solid var(--gold);box-shadow:0 3px 14px #09294a18}
+.login-header .profile-menu{margin-left:auto}
+.login-header .profile-button{min-width:104px;padding:8px 15px;font-size:.9rem}
+.login-header+.wrap{width:min(1440px,calc(100% - 28px));max-width:1440px;margin:14px auto 18px}
+.home-layout{grid-template-columns:minmax(0,1.04fr) minmax(350px,.82fr);gap:clamp(16px,2.2vw,30px);align-items:stretch;margin:0 auto;min-height:calc(100vh - 150px)}
+.login-information{min-width:0;max-width:100%;align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding:clamp(22px,3vw,42px);border-radius:20px;background:linear-gradient(145deg,#0a2c4f,#123f68);overflow:hidden;position:relative;isolation:isolate}
+.login-information:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 12% 8%,#ffffff12,transparent 38%),linear-gradient(130deg,transparent 65%,#e6b72e12);z-index:-1;pointer-events:none}
+.login-information .eyebrow{font-size:.76rem;line-height:1.3;margin-bottom:10px}
+.login-information h1{font-size:clamp(2rem,3.3vw,3.1rem);line-height:1.08;max-width:100%;overflow-wrap:anywhere;margin-bottom:12px}
+.animated-phrase{min-height:0;overflow-wrap:anywhere;word-break:normal}
+.gold-rule{margin-bottom:16px}
+.info-copy{max-width:62ch;font-size:.92rem;line-height:1.58;margin-bottom:0;overflow-wrap:anywhere}
+.feature-list{gap:9px;margin:18px 0 0}
+.feature-item{padding:10px 12px;gap:12px;min-width:0;backdrop-filter:none;animation:none}
+.feature-item>span{height:36px;flex-basis:36px;border-radius:10px}
+.feature-item>div{min-width:0;overflow-wrap:anywhere}
+.feature-item strong{font-size:.91rem;line-height:1.3}
+.feature-item small{font-size:.79rem;line-height:1.35}
+.home-layout>#home{grid-column:2;grid-row:1;width:100%;max-width:530px;justify-self:center;align-self:center;padding:clamp(22px,2.4vw,34px);border-top:4px solid var(--gold);border-radius:22px;min-width:0;overflow:hidden}
+#home h1{font-size:clamp(1.8rem,2.6vw,2.45rem);line-height:1.08;overflow-wrap:anywhere;margin-bottom:10px}
+#home>.muted{font-size:.9rem;line-height:1.5;margin-bottom:14px}
+#studentLoginForm{gap:10px;margin-top:14px}
+#studentLoginForm label{font-size:.85rem;gap:5px}
+#studentLoginForm input{padding:11px 12px;font-size:.94rem}
+#studentLoginForm .primary{padding:12px 14px}
+.login-institution{display:flex;flex-direction:column;align-items:center;gap:7px;margin:0 auto 16px;text-align:center;color:var(--navy)}
+.login-institution img{display:block;width:72px;height:72px;object-fit:contain;object-position:center;background:#fff;border:1px solid #dfe7ef;border-radius:16px;padding:7px;box-shadow:0 7px 20px #0b2d4b10}
+.login-institution strong{font-size:1rem;line-height:1.25}
+#home>.eyebrow{text-align:center;margin-bottom:8px}
+.forgot-link{margin-top:2px;padding:8px 0}
+.site-footer{margin:0 auto;padding:12px 14px 14px;background:#e5edf5;font-size:.78rem;line-height:1.4}
+.site-footer nav{gap:18px;margin-bottom:5px}
+.site-footer p{margin:0}
+@media(min-width:851px){.home-layout{min-height:calc(100vh - 142px)}.login-information~#home form{margin-top:14px}}
+@media(max-width:850px){
+ body:has(.login-header){background:#edf2f7}
+ .login-header{height:54px;min-height:54px;padding:6px 12px}
+ .login-header+.wrap{width:calc(100% - 20px);margin:10px auto 14px}
+ .home-layout{display:flex;flex-direction:column;gap:12px;min-height:0;margin:0 auto}
+ .home-layout>#home{order:1;width:100%;max-width:560px;margin:0 auto;padding:20px 18px;align-self:stretch}
+ .login-information{order:2;width:100%;padding:17px 18px;border-radius:16px;display:block}
+ .login-information .eyebrow{font-size:.7rem;margin-bottom:6px}
+ .login-information h1{font-size:clamp(1.55rem,5vw,2rem);max-width:100%;line-height:1.12;margin-bottom:8px}
+ .login-information .gold-rule{margin:0 0 8px;width:58px}
+ .login-information .info-copy,.login-information .feature-list,.login-information .login-page-logos{display:none!important}
+ .login-institution{margin-bottom:12px;gap:5px}
+ .login-institution img{width:64px;height:64px;border-radius:14px;padding:6px}
+ #home h1{font-size:clamp(1.65rem,6vw,2.05rem);text-align:center}
+ #home>.muted{font-size:.88rem;line-height:1.45;text-align:center;margin-bottom:12px}
+ #studentLoginForm{margin-top:12px;gap:9px}
+ #studentLoginForm input{padding:11px 12px}
+ .site-footer{padding:12px 10px 14px}
+}
+@media(max-width:480px){
+ .login-header{height:50px;min-height:50px}
+ .login-header .profile-button{min-width:94px;padding:7px 12px;font-size:.84rem}
+ .profile-dropdown{min-width:190px}
+ .login-header+.wrap{width:calc(100% - 16px);margin:8px auto 12px}
+ .home-layout{gap:9px}
+ .home-layout>#home{padding:17px 14px;border-radius:17px}
+ .login-institution{margin-bottom:10px}
+ .login-institution img{width:58px;height:58px;padding:5px}
+ .login-institution strong{font-size:.92rem}
+ #home>.eyebrow{font-size:.66rem;letter-spacing:.13em}
+ #home h1{font-size:1.65rem;line-height:1.08;margin-bottom:8px}
+ #home>.muted{font-size:.82rem;line-height:1.4}
+ #studentLoginForm label{font-size:.82rem}
+ #studentLoginForm input{font-size:16px;padding:10px 11px}
+ #studentLoginForm .primary{padding:11px 12px}
+ .forgot-link{font-size:.86rem}
+ .login-information{padding:13px 14px;border-radius:14px}
+ .login-information h1{font-size:1.5rem}
+ .login-information .eyebrow{font-size:.65rem;letter-spacing:.13em}
+ .site-footer nav{gap:14px}
+}
