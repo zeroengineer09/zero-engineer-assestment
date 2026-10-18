@@ -189,3 +189,23 @@ body:has(.login-header){background:#edf2f7;background-attachment:initial;overflo
 @media(max-width:900px){.marks-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.marks-form-grid{grid-template-columns:1fr}.teacher-marks-panel{padding:15px;margin-top:16px}.student-portal-content{padding:14px 10px}.student-page-heading h1{font-size:25px}.student-welcome-card{gap:10px;padding:17px}.student-welcome-card p{font-size:13px}.student-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.student-summary-grid article{display:block;padding:12px}.student-summary-grid span{font-size:10px}.student-summary-grid strong{margin-top:6px}.student-sidebar{width:min(82vw,285px)}.student-data-card{min-width:0;gap:10px}.student-start-test{margin-left:0}}
 @media(min-width:801px){.student-sidebar{overflow:hidden;transition:width .22s ease,flex-basis .22s ease,padding .22s ease}.student-sidebar.collapsed{width:0;flex-basis:0;padding-left:0;padding-right:0}.student-sidebar.collapsed>*{display:none}.student-portal-body{overflow:hidden}}
+
+/* Dashboard header and accessible hamburger fixes */
+body.portal-active>.login-header,
+body.portal-active .login-header{display:none!important}
+.hamburger-button{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;line-height:1;flex-shrink:0}
+.hamburger-button span{display:block;width:22px;height:2.5px;border-radius:2px;background:currentColor;flex:none;transition:transform .18s ease,opacity .18s ease}
+.hamburger-button:focus-visible,.student-sidebar-heading button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.student-portal-top{gap:12px;min-width:0}
+.student-portal-top>div{min-width:0;overflow-wrap:anywhere}
+.student-portal-top strong{line-height:1.25}
+.student-sidebar-heading button{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:27px;line-height:1}
+@media(max-width:800px){
+ .student-portal-top{padding:10px 12px;gap:10px}
+ .student-portal-top .hamburger-button{width:42px;height:42px}
+ .student-portal-top strong{font-size:15px}
+ .student-portal-top small{font-size:11px}
+ .student-portal-top .secondary{flex-shrink:0}
+ .student-sidebar{padding-top:16px}
+ .student-sidebar-heading button{display:flex}
+}
