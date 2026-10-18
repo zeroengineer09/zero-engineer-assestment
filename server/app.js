@@ -69,6 +69,7 @@ app.use('/api/teachers', require('./teacherAuth'));
 app.use('/api/students', require('./studentAuth'));
 app.use('/api/password-reset', require('./passwordReset'));
 app.use('/api/teacher-dashboard', require('./teacherDashboardRoutes'));
+app.use('/api/marks', require('./marksRoutes'));
 app.use('/api/exam', require('./examRoutes'));
 app.use('/api/admin', require('./adminRoutes'));
 

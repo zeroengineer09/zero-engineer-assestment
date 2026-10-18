@@ -64,13 +64,15 @@ const phrases=['Academic Assessment','Learning Progress','Skills Development'];l
 
 // Student portal navigation and data views
 function setStudentView(view){
- const ids={dashboard:'studentViewDashboard',assessments:'studentViewAssessments',marks:'studentViewMarks',teachers:'studentViewTeachers',profile:'studentViewProfile',password:'studentViewPassword'};
+ const ids={dashboard:'studentViewDashboard',assessments:'studentViewAssessments',creditMarks:'studentViewCreditMarks',semesterMarks:'studentViewSemesterMarks',onlineResults:'studentViewOnlineResults',teachers:'studentViewTeachers',profile:'studentViewProfile',password:'studentViewPassword'};
  Object.values(ids).forEach(id=>document.getElementById(id)?.classList.add('hidden'));
  document.getElementById(ids[view]||ids.dashboard)?.classList.remove('hidden');
  document.querySelectorAll('.student-nav[data-student-view]').forEach(b=>b.classList.toggle('active',b.dataset.studentView===view));
  closeStudentSidebar();
  if(view==='assessments')loadStudentAssessments();
- if(view==='marks')loadStudentMarks();
+ if(view==='creditMarks')loadAcademicMarks('credit');
+ if(view==='semesterMarks')loadAcademicMarks('semester');
+ if(view==='onlineResults')loadStudentMarks();
  if(view==='teachers')loadStudentTeachers();
  window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -89,7 +91,7 @@ async function loadStudentAssessments(){
  const box=document.getElementById('studentAssessmentsList'),p=currentStudent||window.currentStudent;if(!box||!p)return;box.innerHTML='<p class="muted">Loading assessments…</p>';
  try{const list=await api('/api/exam/assessments?year='+encodeURIComponent(p.academicYear||'FY'));if(!list.length){box.innerHTML='<div class="student-content-card"><h3>No assessments available yet</h3><p class="muted">Your assigned assessments will appear here.</p></div>';return}
  box.innerHTML=list.map(a=>`<article class="student-data-card"><div class="student-data-icon">▣</div><div class="student-data-main"><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.description||'Academic assessment')}</p><div class="student-meta"><span>${Number(a.duration_minutes)} minutes</span><span>Pass mark ${Number(a.passing_percentage)}%</span></div></div><button class="primary student-start-test" data-assessment="${Number(a.id)}">Start test</button></article>`).join('');
- box.querySelectorAll('.student-start-test').forEach(btn=>btn.addEventListener('click',async()=>{try{const assessment=list.find(a=>Number(a.id)===Number(btn.dataset.assessment));$('#fullName').value=p.fullName;$('#candidateClass').value=p.academicYear;$('#candidateDivision').value=p.division;$('#candidateClass').disabled=true;$('#candidateDivision').disabled=true;await loadAssessments();$('#assessment').value=String(assessment.id);$('#assessmentRegistration').classList.remove('hidden');show('home');$('#assessmentRegistration').scrollIntoView({behavior:'smooth',block:'start'});}catch(e){box.insertAdjacentHTML('afterbegin','<p class="error">Unable to open this assessment.</p>')}}));
+ box.querySelectorAll('.student-start-test').forEach(btn=>btn.addEventListener('click',async()=>{try{const assessment=list.find(a=>Number(a.id)===Number(btn.dataset.assessment));$('#fullName').value=p.fullName;$('#candidateClass').value=p.academicYear;$('#candidateDivision').value=p.division;$('#candidateClass').disabled=true;$('#candidateDivision').disabled=true;await loadAssessments();$('#assessment').value=String(assessment.id);state.assessment=assessment;state.candidate={name:p.fullName,className:p.academicYear,division:p.division,email:p.email};$('#instructionTitle').textContent=assessment.title;$('#instructionDetails').innerHTML=[['Questions','Loaded from assessment'],['Duration',assessment.duration_minutes+' minutes'],['Passing score',assessment.passing_percentage+'%'],['Attempts permitted',assessment.max_attempts]].map(x=>`<div class="info-card"><span class="muted">${x[0]}</span><strong>${x[1]}</strong></div>`).join('');$('#agree').checked=false;$('#startExam').disabled=true;show('instructions');}catch(e){box.insertAdjacentHTML('afterbegin','<p class="error">Unable to open this assessment.</p>')}}));
  }catch(e){box.innerHTML=`<p class="error">${escapeHtml(e.message)}</p>`}
 }
 async function loadStudentMarks(){
@@ -105,7 +107,7 @@ async function loadStudentTeachers(){
  }catch(e){box.innerHTML=`<p class="error">${escapeHtml(e.message)}</p>`}
 }
 document.querySelectorAll('.student-nav[data-student-view], [data-student-view]:not(.student-nav)').forEach(b=>b.addEventListener('click',()=>setStudentView(b.dataset.studentView)));
-document.getElementById('studentSidebarToggle')?.addEventListener('click',()=>{const s=document.getElementById('studentSidebar'),open=!s.classList.contains('open');s.classList.toggle('open',open);document.getElementById('studentSidebarBackdrop').classList.toggle('show',open);document.getElementById('studentSidebarToggle').setAttribute('aria-expanded',String(open))});
+document.getElementById('studentSidebarToggle')?.addEventListener('click',()=>{const s=document.getElementById('studentSidebar'),mobile=window.matchMedia('(max-width: 800px)').matches;if(mobile){const open=!s.classList.contains('open');s.classList.toggle('open',open);document.getElementById('studentSidebarBackdrop').classList.toggle('show',open);document.getElementById('studentSidebarToggle').setAttribute('aria-expanded',String(open))}else{s.classList.toggle('collapsed');document.getElementById('studentSidebarToggle').setAttribute('aria-expanded',String(!s.classList.contains('collapsed')))}});
 document.getElementById('studentSidebarClose')?.addEventListener('click',closeStudentSidebar);document.getElementById('studentSidebarBackdrop')?.addEventListener('click',closeStudentSidebar);
 async function studentLogout(){try{await api('/api/students/logout',{method:'POST',body:'{}'})}catch{}currentStudent=null;window.currentStudent=null;window.studentMustChangePassword=false;document.body.classList.remove('student-authenticated');$('#studentPassword').value='';$('#studentEmail').value='';show('home')}
 document.getElementById('studentPortalLogoutTop')?.addEventListener('click',studentLogout);document.getElementById('studentSidebarLogout')?.addEventListener('click',studentLogout);

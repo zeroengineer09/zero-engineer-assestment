@@ -43,6 +43,27 @@ async function ensureSchema() {
   )`);
   await ensureColumn('student_accounts', 'practical_batch', "TEXT NOT NULL DEFAULT ''");
 
+  await exec(`CREATE TABLE IF NOT EXISTS academic_marks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category TEXT NOT NULL CHECK(category IN ('credit','semester')),
+    title TEXT NOT NULL,
+    subject_name TEXT NOT NULL,
+    academic_year TEXT NOT NULL,
+    division TEXT NOT NULL DEFAULT '',
+    semester TEXT NOT NULL DEFAULT '',
+    exam_date TEXT NOT NULL DEFAULT '',
+    student_id INTEGER NOT NULL REFERENCES student_accounts(id) ON DELETE CASCADE,
+    teacher_id INTEGER NOT NULL REFERENCES teachers(id),
+    marks_obtained REAL NOT NULL CHECK(marks_obtained >= 0),
+    max_marks REAL NOT NULL CHECK(max_marks > 0 AND marks_obtained <= max_marks),
+    published INTEGER NOT NULL DEFAULT 0 CHECK(published IN (0,1)),
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE(category,title,subject_name,semester,student_id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_academic_marks_student ON academic_marks(student_id,category,published);
+  CREATE INDEX IF NOT EXISTS idx_academic_marks_teacher ON academic_marks(teacher_id,category,subject_name);`);
+
   // Add the supplied initial student only when the email is not already present.
   // Existing student passwords are never overwritten.
   const initialStudent = await get('SELECT id FROM student_accounts WHERE lower(email)=lower(?)', ['yp0333z7@gmail.com']);
