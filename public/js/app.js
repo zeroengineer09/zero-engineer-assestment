@@ -151,19 +151,46 @@ document.getElementById('studentManualPasswordForm')?.addEventListener('submit',
   function runPortalSearch() {
     const query = (search?.value || '').trim().toLowerCase();
     const view = document.querySelector('.student-view:not(.hidden)');
-    if (!view) return;
-    const cards = view.querySelectorAll('.student-data-card, .dashboard-assessment-row, .teacher-card, .student-content-card, .activity-placeholder');
+    document.querySelectorAll('.search-filter-hidden').forEach(el => el.classList.remove('search-filter-hidden'));
+    if (!view || !query) return;
+    const cards = view.querySelectorAll('.student-data-card, .dashboard-assessment-row, .teacher-card, .student-content-card, .activity-placeholder, .student-summary-grid article');
     cards.forEach(card => {
       const searchable = (card.innerText || card.textContent || '').toLowerCase();
-      card.classList.toggle('search-filter-hidden', !!query && !searchable.includes(query));
+      card.classList.toggle('search-filter-hidden', !searchable.includes(query));
     });
-    if (!query) document.querySelectorAll('.search-filter-hidden').forEach(el=>el.classList.remove('search-filter-hidden'));
+  }
+  function jumpToSearchCategory(query) {
+    const q = query.toLowerCase();
+    const routes = [
+      {terms:['assessment','assessments','test','tests','office','web design','subject'], view:'assessments'},
+      {terms:['credit','internal'], view:'creditMarks'},
+      {terms:['semester','exam'], view:'semesterMarks'},
+      {terms:['result','score','online test'], view:'onlineResults'},
+      {terms:['teacher','faculty','mam','sir'], view:'teachers'},
+      {terms:['profile','account'], view:'profile'}
+    ];
+    const route = routes.find(item => item.terms.some(term => q.includes(term)));
+    if (route) setStudentView(route.view);
+    else {
+      const matchingView = [...document.querySelectorAll('.student-view')].find(candidate =>
+        [...candidate.querySelectorAll('.student-data-card,.dashboard-assessment-row,.teacher-card,.student-content-card')]
+          .some(card => (card.innerText || card.textContent || '').toLowerCase().includes(q))
+      );
+      if (matchingView) {
+        const map = {studentViewDashboard:'dashboard',studentViewAssessments:'assessments',studentViewCreditMarks:'creditMarks',studentViewSemesterMarks:'semesterMarks',studentViewOnlineResults:'onlineResults',studentViewTeachers:'teachers',studentViewProfile:'profile',studentViewPassword:'password'};
+        if (map[matchingView.id]) setStudentView(map[matchingView.id]);
+      }
+    }
+    runPortalSearch();
   }
   search?.addEventListener('input', runPortalSearch);
   search?.addEventListener('keydown', event => {
     if(event.key==='Escape'){search.value='';runPortalSearch();search.blur()}
     if(event.key==='Enter'){
-      const first=document.querySelector('.student-view:not(.hidden) .student-data-card:not(.search-filter-hidden) .student-start-test');
+      const query = (search.value || '').trim();
+      if (!query) return;
+      jumpToSearchCategory(query);
+      const first=document.querySelector('.student-view:not(.hidden) .student-data-card:not(.search-filter-hidden) .student-start-test, .student-view:not(.hidden) .dashboard-assessment-row:not(.search-filter-hidden) [data-dashboard-assessment]');
       if(first) first.click();
     }
   });
