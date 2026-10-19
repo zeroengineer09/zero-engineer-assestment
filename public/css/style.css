@@ -242,3 +242,64 @@ label{color:#292650}input,select,textarea{border-color:#dfdef0!important;backgro
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 @media(max-width:850px){body{background:#f5f5fc!important}.wrap{width:calc(100% - 24px);margin:12px auto 22px}.home-layout{grid-template-columns:1fr;gap:14px}.login-information{padding:20px;border-radius:18px}.login-information h1{font-size:clamp(1.8rem,7vw,2.4rem);max-width:20ch}.info-copy{font-size:.9rem;line-height:1.5;margin-bottom:12px}.feature-list{display:grid;grid-template-columns:1fr;gap:8px;margin:12px 0 0}.feature-item{padding:10px 12px}.feature-item>span{height:34px;flex-basis:34px}.home-layout>#home{grid-column:1;grid-row:2;max-width:none;padding:22px 18px;border-radius:18px}.login-institution{margin-bottom:12px}.login-institution img{width:46px;height:46px}#home h1{font-size:1.8rem}.site-header{min-height:58px}}
 @media(max-width:480px){.wrap{width:calc(100% - 16px);margin:8px auto 18px}.login-information{padding:17px 15px}.login-information h1{font-size:1.75rem}.login-information .eyebrow{font-size:.65rem}.info-copy{font-size:.84rem}.feature-item strong{font-size:.88rem}.feature-item small{font-size:.76rem}.home-layout>#home{padding:20px 15px}#home h1{font-size:1.65rem}#home>.muted{font-size:.86rem}.login-institution strong{font-size:.95rem}#studentLoginForm label{font-size:.86rem}#studentLoginForm input{font-size:16px;min-height:44px}.student-summary-grid{gap:9px}.student-summary-grid article{padding:12px}.student-portal-top{border-radius:12px!important}}
+
+
+/* RCPET campus dashboard refresh */
+.student-portal{background:#f1f5fb;color:#102b50;min-height:100vh}
+.student-portal-top{height:70px;background:linear-gradient(110deg,#061d4d,#0a3d87 65%,#164c9b);border-bottom:1px solid #2755a0;color:#fff;box-shadow:0 5px 18px #06234a22}
+.student-portal-top strong,.student-portal-top small{color:#fff}
+.student-portal-top small{opacity:.75}
+.hamburger-button{background:#ffffff12;color:#fff;border-color:#ffffff38;border-radius:12px}
+.student-portal-body{min-height:calc(100vh - 70px)}
+.student-sidebar{width:252px;flex-basis:252px;background:linear-gradient(180deg,#061a43,#082d67 65%,#0a3f91);padding:14px 12px;color:#f7faff}
+.student-brand{display:flex;align-items:center;gap:11px;padding:8px 8px 22px;margin-bottom:14px;border-bottom:1px solid #ffffff20}
+.student-brand img{width:48px;height:48px;object-fit:contain;border-radius:12px;background:#fff;padding:4px}
+.student-brand div{display:flex;flex-direction:column;line-height:1.2}
+.student-brand strong{font-size:14px;letter-spacing:.02em;color:#fff}
+.student-brand small{font-size:11px;letter-spacing:.1em;color:#b9d1ff;margin-top:4px}
+.student-sidebar-heading{padding:9px 10px 12px;color:#a9c6f3}
+.student-nav{border-radius:12px;padding:12px 13px;gap:12px;font-size:14px;margin:4px 0;color:#e8f1ff;transition:background .2s,transform .2s,box-shadow .2s}
+.student-nav:hover{transform:translateX(3px);background:#ffffff12}
+.student-nav.active{background:linear-gradient(100deg,#1e5ce0,#1748a5);box-shadow:0 7px 18px #001b4d45,inset 3px 0 #f7c948}
+.student-nav>span{font-size:13px}
+.student-portal-content{padding:24px clamp(16px,2vw,30px);max-width:none}
+.student-page-heading{margin-bottom:17px}
+.student-page-heading h1{font-size:clamp(24px,2.3vw,31px);letter-spacing:-.03em}
+.student-page-heading .eyebrow{margin-bottom:3px}
+.campus-welcome{position:relative;isolation:isolate;min-height:290px;overflow:hidden;align-items:stretch;justify-content:center;padding:32px 30px;border-radius:17px;background:#082c62 url('/assets/imrd-campus.jpg') center 48%/cover no-repeat;box-shadow:0 15px 32px #0b2d4b1c}
+.campus-welcome:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,24,62,.97) 0%,rgba(5,38,88,.91) 30%,rgba(6,44,91,.55) 52%,rgba(5,29,64,.05) 100%)}
+.campus-welcome:after{content:"";position:absolute;right:18px;top:18px;width:90px;height:125px;border:1px solid #ffffff50;border-radius:15px;background:#0a3673a8;backdrop-filter:blur(8px);z-index:-1}
+.campus-welcome-copy{max-width:58%;position:relative;z-index:1}
+.campus-welcome .eyebrow{color:#ffd34f;letter-spacing:.22em}
+.campus-welcome h2{font-size:clamp(24px,2.4vw,34px);line-height:1.2;color:#fff;margin:8px 0 10px}
+.campus-welcome h2 span{color:#ffd34f}
+.campus-welcome p{color:#d9e8ff;font-size:15px}
+.welcome-highlights{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.welcome-highlights span{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid #5c9ce966;background:#082c62a8;border-radius:11px;color:#fff;font-size:12px;font-weight:700}
+.legacy-dashboard-photo{display:none!important}
+.student-summary-grid{gap:13px;margin:16px 0}
+.student-summary-grid article{position:relative;display:flex;flex-direction:column;justify-content:center;min-height:112px;padding:18px 20px;border:1px solid #e0e9f5;border-radius:15px;background:linear-gradient(135deg,#fff,#f9fbff);box-shadow:0 7px 20px #092b5310;transition:transform .2s,box-shadow .2s}
+.student-summary-grid article:hover{transform:translateY(-3px);box-shadow:0 12px 25px #092b5318}
+.student-summary-grid span{font-size:11px;letter-spacing:.06em;color:#52709c}
+.student-summary-grid strong{font-size:29px;margin-top:4px;color:#082b63}
+.student-dashboard-lower{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.85fr);gap:14px;align-items:stretch}
+.student-content-card{border:1px solid #e0e9f5;border-radius:16px;padding:18px;background:#fff;box-shadow:0 7px 20px #092b5308;margin:0}
+.student-card-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #e8eef7;padding-bottom:12px;margin-bottom:4px}
+.student-card-heading h2{font-size:17px;margin:0;color:#082b63}
+.dashboard-view-all{padding:6px 8px;background:transparent;color:#075ee9;font-size:12px}
+.dashboard-assessment-row{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #edf1f7}
+.dashboard-assessment-row:last-child{border-bottom:0}
+.dashboard-assessment-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#e5efff;color:#0969e8;font-size:20px}
+.dashboard-assessment-row>div{min-width:0;display:flex;flex-direction:column;gap:3px}
+.dashboard-assessment-row strong{font-size:13px;color:#102b50}
+.dashboard-assessment-row small{font-size:11px;color:#7486a3;line-height:1.4}
+.dashboard-assessment-row button{padding:9px 13px;font-size:12px;white-space:nowrap;border-radius:9px}
+.activity-placeholder{display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid #edf1f7}
+.activity-placeholder:last-child{border-bottom:0}
+.activity-placeholder>span{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:#e8f1ff;color:#0868d9;font-size:18px;font-weight:800;flex:0 0 38px}
+.activity-placeholder div{display:flex;flex-direction:column;gap:3px}
+.activity-placeholder strong{font-size:12px;color:#102b50}
+.activity-placeholder small{font-size:11px;color:#7b8ca6}
+@media(max-width:1000px){.student-dashboard-lower{grid-template-columns:1fr}.campus-welcome{min-height:255px}.campus-welcome-copy{max-width:70%}}
+@media(max-width:800px){.student-portal-top{height:62px;padding:8px 12px}.student-portal-body{min-height:calc(100vh - 62px)}.student-sidebar{width:270px;flex-basis:270px}.student-brand{padding-bottom:15px}.student-portal-content{padding:14px 12px}.student-page-heading{margin-bottom:13px}.campus-welcome{min-height:245px;padding:23px 18px;background-position:58% center}.campus-welcome:before{background:linear-gradient(90deg,rgba(3,24,62,.96),rgba(5,38,88,.82) 58%,rgba(6,44,91,.28))}.campus-welcome-copy{max-width:90%}.campus-welcome h2{font-size:25px}.campus-welcome p{font-size:13px}.welcome-highlights{gap:7px;margin-top:17px}.welcome-highlights span{font-size:10px;padding:7px 8px}.student-summary-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}.student-summary-grid article{min-height:85px;padding:12px 10px}.student-summary-grid span{font-size:9px;line-height:1.35}.student-summary-grid strong{font-size:23px}.student-content-card{padding:14px}.dashboard-assessment-row{grid-template-columns:34px minmax(0,1fr);gap:9px}.dashboard-assessment-icon{width:34px;height:34px;font-size:17px}.dashboard-assessment-row button{grid-column:2;justify-self:start;margin-top:3px}.student-card-heading h2{font-size:16px}}
+@media(max-width:420px){.student-summary-grid{grid-template-columns:1fr}.student-summary-grid article{min-height:65px;display:flex;flex-direction:row;align-items:center;justify-content:space-between}.student-summary-grid strong{margin:0;font-size:22px}.campus-welcome{min-height:230px;padding:20px 15px}.campus-welcome-copy{max-width:100%}.campus-welcome h2{font-size:22px}.campus-welcome:after{display:none}.welcome-highlights span{font-size:9px}.student-portal-top strong{font-size:14px}.student-portal-top small{font-size:10px}}
