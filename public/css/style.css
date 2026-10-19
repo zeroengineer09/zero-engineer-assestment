@@ -303,3 +303,35 @@ label{color:#292650}input,select,textarea{border-color:#dfdef0!important;backgro
 @media(max-width:1000px){.student-dashboard-lower{grid-template-columns:1fr}.campus-welcome{min-height:255px}.campus-welcome-copy{max-width:70%}}
 @media(max-width:800px){.student-portal-top{height:62px;padding:8px 12px}.student-portal-body{min-height:calc(100vh - 62px)}.student-sidebar{width:270px;flex-basis:270px}.student-brand{padding-bottom:15px}.student-portal-content{padding:14px 12px}.student-page-heading{margin-bottom:13px}.campus-welcome{min-height:245px;padding:23px 18px;background-position:58% center}.campus-welcome:before{background:linear-gradient(90deg,rgba(3,24,62,.96),rgba(5,38,88,.82) 58%,rgba(6,44,91,.28))}.campus-welcome-copy{max-width:90%}.campus-welcome h2{font-size:25px}.campus-welcome p{font-size:13px}.welcome-highlights{gap:7px;margin-top:17px}.welcome-highlights span{font-size:10px;padding:7px 8px}.student-summary-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}.student-summary-grid article{min-height:85px;padding:12px 10px}.student-summary-grid span{font-size:9px;line-height:1.35}.student-summary-grid strong{font-size:23px}.student-content-card{padding:14px}.dashboard-assessment-row{grid-template-columns:34px minmax(0,1fr);gap:9px}.dashboard-assessment-icon{width:34px;height:34px;font-size:17px}.dashboard-assessment-row button{grid-column:2;justify-self:start;margin-top:3px}.student-card-heading h2{font-size:16px}}
 @media(max-width:420px){.student-summary-grid{grid-template-columns:1fr}.student-summary-grid article{min-height:65px;display:flex;flex-direction:row;align-items:center;justify-content:space-between}.student-summary-grid strong{margin:0;font-size:22px}.campus-welcome{min-height:230px;padding:20px 15px}.campus-welcome-copy{max-width:100%}.campus-welcome h2{font-size:22px}.campus-welcome:after{display:none}.welcome-highlights span{font-size:9px}.student-portal-top strong{font-size:14px}.student-portal-top small{font-size:10px}}
+
+/* Login page aligned with the RCPET campus dashboard theme */
+:root{--navy:#06234b;--navy2:#0c3e70;--blue:#0878e8;--blue2:#149be8;--gold:#efbd2e;--gold2:#ffd65a;--ink:#102b50;--line:#d7e3f1;--panel2:#f2f7fc}
+body:has(.login-header){background:#edf3fa!important;color:#102b50}
+.login-header{background:linear-gradient(110deg,#061f43,#0b3d70 70%,#14528b)!important;border-bottom:2px solid #efbd2e!important;box-shadow:0 6px 22px #092b4c20!important}
+.profile-button{color:#092b50!important;border:1px solid #d8e5f4!important;background:#fff!important;border-radius:999px!important}
+.profile-dropdown{background:#fff!important;border-color:#dbe6f2!important}
+.profile-dropdown button:hover{background:#eaf3ff!important;color:#0868c6!important}
+.login-information{background:linear-gradient(105deg,rgba(4,29,64,.97),rgba(7,54,99,.88) 48%,rgba(6,41,76,.48)),url('/assets/imrd-campus.jpg') center/cover no-repeat!important;border:1px solid #ffffff24!important;border-radius:22px!important;box-shadow:0 22px 55px #08294b30!important;min-height:540px}
+.login-information:before{background:radial-gradient(circle at 12% 8%,#ffffff15,transparent 38%),linear-gradient(130deg,transparent 55%,#efbd2e18)!important}
+.login-information:after{border-color:#ffffff1c!important;box-shadow:0 0 0 28px #ffffff0a,0 0 0 56px #ffffff07!important}
+.login-information .eyebrow{color:#ffd65a!important}.login-information h1{color:#fff!important}.animated-phrase{color:#ffd65a!important}
+.gold-rule{background:linear-gradient(90deg,#ffd044,#efbd2e 60%,transparent)!important}
+.info-copy{color:#f0f6ff!important;text-shadow:0 1px 8px #00152a55}
+.feature-item{background:#ffffff16!important;border-color:#ffffff35!important;backdrop-filter:blur(10px)}
+.feature-item>span{background:linear-gradient(145deg,#ffda55,#e9ae16)!important;color:#092b50!important;box-shadow:0 6px 18px #efbd2e25}
+.home-layout>#home{background:#fff!important;border:1px solid #dbe6f2!important;border-top:4px solid #efbd2e!important;border-radius:24px!important;box-shadow:0 24px 65px #0a2f5218!important}
+.login-institution img{width:68px!important;height:68px!important;object-fit:contain!important;background:#fff!important;border:1px solid #dce7f3!important;border-radius:18px!important;box-shadow:0 8px 24px #08294b12!important}
+.login-institution strong{color:#0b2e54!important}
+#home h1{color:#0b2b4d!important}
+label{color:#102b50!important}
+input,select,textarea{border-color:#d4e1ef!important;background:#f7fafd!important;color:#102b50!important}
+input:focus,select:focus,textarea:focus{border-color:#1689e8!important;box-shadow:0 0 0 4px #1689e81e!important;background:#fff!important}
+.primary{background:linear-gradient(105deg,#0868c6,#149be8)!important;box-shadow:0 8px 18px #0878e82b!important}
+.primary:hover{box-shadow:0 12px 25px #0878e83b!important}
+.secondary{border-color:#d5e2f0!important;background:#edf4fb!important;color:#0b2e54!important}
+.text-button,.site-footer a{color:#0878c9!important}
+.site-footer{background:#e4edf7!important;color:#627993!important;border-top:1px solid #d5e2f0!important}
+#teacherLogin,#adminLogin,#passwordReset,#passwordChange,#exam,#instructions,#result,#teacherDashboard,#admin{border-color:#dbe6f2!important;box-shadow:0 18px 50px #08294b15!important}
+.password-visibility-toggle{color:#526b87!important}.password-visibility-toggle:hover{background:#eaf3fc!important;color:#0878c9!important}
+@media(max-width:850px){.login-information{min-height:0;background:linear-gradient(105deg,rgba(4,29,64,.94),rgba(7,54,99,.77)),url('/assets/imrd-campus.jpg') center/cover no-repeat!important}.home-layout>#home{margin-bottom:6px}}
+@media(max-width:480px){.login-information{padding:17px 15px!important}.home-layout>#home{padding:20px 16px!important}.login-institution img{width:54px!important;height:54px!important}.login-information h1{font-size:1.65rem!important}}
